@@ -1,34 +1,35 @@
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution(object):
-    def addTwoNumbers(self, l1, l2):
-        num1 = []
-        num2 = []
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* d = new ListNode(0);
+        ListNode* cur = d;
+        int carry = 0;
 
-        p = l1
-        while p:
-            num1.append(str(p.val))
-            p = p.next
+        while (l1 || l2 || carry) {
+            int v1 = l1 ? l1->val : 0;
+            int v2 = l2 ? l2->val : 0;
 
-        q = l2
-        while q:
-            num2.append(str(q.val))
-            q = q.next
+            int val = v1 + v2 + carry;
+            carry = val / 10;
+            val %= 10;
 
-        num1 = int(''.join(num1[::-1]))
-        num2 = int(''.join(num2[::-1]))
+            cur->next = new ListNode(val);
+            cur = cur->next;
 
-        number = str(num1 + num2)
-        digits = list(number[::-1])
+            if (l1) l1 = l1->next;
+            if (l2) l2 = l2->next;
+        }
 
-        newList = ListNode(int(digits[0]))
-        dummy = newList
-
-        for digit in digits[1:]:
-            dummy.next = ListNode(int(digit))
-            dummy = dummy.next
-
-        return newList
+        return d->next;
+    }
+};
