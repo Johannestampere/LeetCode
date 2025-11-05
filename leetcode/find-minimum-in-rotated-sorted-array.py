@@ -1,21 +1,18 @@
-class Solution(object):
-    def findMin(self, nums):
-        L, R = 0, len(nums)-1
-        res = nums[0]
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int L = 0;
+        int R = nums.size() - 1;
+        while (L < R) {
+            int m = (L + R) / 2;
+            if (nums[m] > nums[R]) {
+                L = m + 1;
+            }
+            else {
+                R = m;
+            }
+        }
 
-        while L <= R:
-
-            if nums[L] < nums[R]:    
-                res = min(res, nums[L])  
-                break      
-                
-            mid = (R + L) // 2
-
-            res = min(res, nums[mid])
-
-            if nums[mid] >= nums[L]:
-                L = mid + 1
-            else:
-                R = mid - 1
-            
-        return res
+        return nums[L];
+    }
+};
