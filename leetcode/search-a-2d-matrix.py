@@ -1,42 +1,53 @@
-# First do binary search on the rows themselves
-# then do binary search in the correct row
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int top = 0;
+        int bottom = matrix.size() - 1;
 
-class Solution(object):
-    def searchMatrix(self, matrix, target):
-        rows, cols = len(matrix), len(matrix[0])
+        while (top <= bottom) {
+            int mid = (top + bottom) / 2;
 
-        top, bot = 0, rows - 1
+            if (matrix[mid][0] < target) {
+                top = mid + 1;
+                continue;
+            }
 
-        while top <= bot:
-            row = bot + (top - bot) // 2
+            else if (matrix[mid][0] > target) {
+                bottom = mid - 1;
+                continue;
+            }
 
-            if target > matrix[row][-1]:
-                top = row + 1
-            
-            elif target < matrix[row][0]:
-                bot = row - 1
-            
-            else:
-                break
-            
-        if not (top <= bot):
-            return False
-        
-        row = (top + bot) // 2
-    
-        l, r = 0, cols - 1
+            else {
+                return true;
+            }
+        }
 
-        while l <= r:
+        if (bottom < 0) return false;
+        int row = bottom;
 
-            mid = l + (r - l) // 2
+        int L = 0;
+        int R = matrix[0].size() - 1;
 
-            if target > matrix[row][mid]:
-                l = mid + 1
-            
-            elif target < matrix[row][mid]:
-                r = mid - 1
-            
-            else:
-                return True
-            
-        return False
+
+        while (L <= R) {
+            int mid = (L + R) / 2;
+
+            if (matrix[row][mid] < target) {
+                L = mid + 1;
+                continue;
+            }
+
+            else if (matrix[row][mid] > target) {
+                R = mid - 1;
+                continue;
+            }
+
+            else {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+};
