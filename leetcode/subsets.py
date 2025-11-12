@@ -1,20 +1,21 @@
-class Solution(object):
-    def subsets(self, nums):
-        
-        res, subset = [], []
+class Solution {
+public:
+    vector<vector<int>> res;
+    vector<int> sub;
 
-        def dfs(i):
-            if i == len(nums): # base case: we're at the leaf node
-                res.append(list(subset))
-                return
-            
-            # choose to pick nums[i]
-            subset.append(nums[i])
-            dfs(i + 1)
+    void dfs(int i, vector<int>& nums) {
+        if (i == nums.size()) { res.push_back(sub); return; }
 
-            # choose not to pick nums[i]
-            subset.pop()
-            dfs(i + 1)
+        sub.push_back(nums[i]);
+        dfs(i + 1, nums);
 
-        dfs(0)
-        return res
+        sub.pop_back();
+        dfs(i + 1, nums);
+
+    }
+
+    vector<vector<int>> subsets(vector<int>& nums) {
+        dfs(0, nums);
+        return res;
+    }
+};
